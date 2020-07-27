@@ -159,4 +159,37 @@ class Person:
         print(bcolors.BOLD + self.name +"              "+hp_vstr+str(self.hp)+"/"+str(self.maxhp)+"|"+bcolors.OKGREEN+ hp_bar +bcolors.ENDC+bcolors.BOLD+"|      "+mp_vstr+str(self.mp)+"/"+str(self.maxmp)+"|"+bcolors.OKBLUE+ mp_bar +bcolors.ENDC+bcolors.BOLD+"|"+bcolors.ENDC)
         
 
+    def choose_enemy_spell(self):
+        magic_choice = random.randrange(0,len(self.magic))
+        spell = self.magic[magic_choice]
+        magic_dmg = spell.generate_damage()
+        cost = spell.cost 
+        current_mp = self.get_mp()
+        pct = self.hp/self.maxhp * 100
 
+        if spell.cost > current_mp or spell.type == "white " and pct > 50:
+            self.choose_enemy_spell()
+
+        else:   
+            return spell , magic_dmg
+
+    # def choose_enemy_item(self):
+    #     item_choice = random.randrange(0,len(self.items))
+    #     item = self.item[item_choice]
+    #     item_prop = item.prop
+    #     current_mp = self.get_mp()
+
+    #     if spell.cost > current_mp :
+    #         self.choose_enemy_spell()
+
+    #     else:   
+    #         return spell , magic_dmg        
+
+
+    # def has_died(self,persons):
+    #     for person in persons:
+    #         if  person.get_hp() == 0:
+    #             print(bcolors.BOLD + bcolors.FAIL +  person.name+ " has died." + bcolors.ENDC)
+    #             persons.remove(person)  
+
+    #     return persons
